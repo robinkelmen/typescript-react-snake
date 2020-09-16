@@ -1,0 +1,20 @@
+.node {
+    height: 20px;
+    width: 20px;
+    outline: 1px solid lightblue;
+    display: inline-block;
+}
+
+.node_head {
+    height: 20px;
+    width: 20px;
+    background-color: teal;
+    display: inline-block;
+}
+
+.node_body {
+    height: 20px;
+    width: 20px;
+    background-color: teal;
+    display: inline-block;
+}
