@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./Gameboard.css";
+import Snakenode from "./Snakebody/Snakenode";
 
 const XPOS_HEAD_START: number = 15;
 const YPOS_HEAD_START: number = 15;
@@ -12,12 +12,50 @@ interface Props {
 }
 
 export default class Gameboard extends Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { nodes: props.nodes };
+  }
+
   play() {}
 
+  componentDidMount() {
+    const nodes = createGrid(30, 30);
+    this.setState({ nodes });
+  }
+
   render() {
+    const { nodes } = this.props;
     return (
       <div className="Grid">
         <button onClick={() => this.play()}> Start Playing</button>
+        {nodes.map((myrow: [], rowindex) => {
+          return (
+            <div key={rowindex}>
+              {myrow.map((node, nodeindex) => {
+                const {
+                  row,
+                  col,
+                  isHead,
+                  isBody,
+                  isApple,
+                  previousNode,
+                } = node;
+                return (
+                  <Snakenode
+                    key={nodeindex}
+                    xPos={row}
+                    yPos={col}
+                    isHead={isHead}
+                    isBody={isBody}
+                    isApple={isApple}
+                    previousNode={previousNode}
+                  ></Snakenode>
+                );
+              })}
+            </div>
+          );
+        })}
       </div>
     );
   }
@@ -26,12 +64,12 @@ export default class Gameboard extends Component<Props> {
 const createGrid = (xSize: number, ySize: number) => {
   const nodes = [];
   for (let row = 0; row < xSize; row++) {
-    const currentcol = [];
+    const currentrow = [];
     for (let col = 0; col < ySize; col++) {
-      currentcol.push(createNode(row, col));
+      currentrow.push(createNode(row, col));
     }
 
-    nodes.push(currentcol);
+    nodes.push(currentrow);
   }
   return nodes;
 };
