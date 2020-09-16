@@ -10,8 +10,16 @@ const YPOS_APPLE_START: number = Math.floor(Math.random() * Math.floor(30));
 interface Props {
   nodes: [];
 }
+interface node {
+  row: number;
+  col: number;
+  isHead: boolean;
+  isBody: boolean;
+  isApple: boolean;
+  previousNode?: Snakenode;
+}
 
-export default class Gameboard extends Component<Props, { nodes: {}[][] }> {
+export default class Gameboard extends Component<Props, { nodes: node[][] }> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -33,12 +41,13 @@ export default class Gameboard extends Component<Props, { nodes: {}[][] }> {
     const { nodes } = this.state;
     return (
       <div className="Grid">
-        <button onClick={() => this.play()}> Start Playing</button>
+        <button className="button startbutt" onClick={() => this.play()}>
+          Start Playing
+        </button>
         {nodes.map((myrow, rowindex) => {
           return (
-            <div key={rowindex}>
-              {myrow.map((node: {}, nodeindex) => {
-                console.log(node);
+            <div key={rowindex} className="row">
+              {myrow.map((node, nodeindex) => {
                 const {
                   row,
                   col,
@@ -69,6 +78,8 @@ export default class Gameboard extends Component<Props, { nodes: {}[][] }> {
 }
 
 const createGrid = (xSize: number, ySize: number) => {
+  console.log(YPOS_APPLE_START);
+  console.log(XPOS_APPLE_START);
   const nodes = [];
   for (let row = 0; row < xSize; row++) {
     const currentrow = [];
@@ -82,13 +93,14 @@ const createGrid = (xSize: number, ySize: number) => {
 };
 
 const createNode = (row: number, col: number) => {
-  const node: {} = {
-    row,
-    col,
+  const mynode: node = {
+    row: row,
+    col: col,
     isHead: row === XPOS_HEAD_START && col === YPOS_HEAD_START,
     isBody: false,
     isApple: row === XPOS_APPLE_START && col === YPOS_APPLE_START,
-    previousNode: null,
+    previousNode: undefined,
   };
-  return node;
+
+  return mynode;
 };
