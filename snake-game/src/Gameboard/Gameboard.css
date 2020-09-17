@@ -149,27 +149,42 @@
 
   background: linear-gradient(135deg, rgba(81, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 71%, rgba(252, 176, 69, 1) 100%);
   background-size: 200% 200%;
-  animation: buttgrad 1s ease infinite;
+  animation: buttgrad 5s ease infinite;
 
 }
 
 .snake_crazy {
   background: rgb(2, 0, 36);
   background: linear-gradient(135deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 25%, rgba(0, 212, 255, 1) 100%);
-  animation: buttgrad 0.5s ease infinite;
+  animation: buttgrad 0.5s ease-in-out infinite linear;
 }
 
 @keyframes buttgrad {
   0% {
     background-position: 0% 50%;
+    transform: skewX(0deg);
   }
 
-  50% {
+  20% {
+    transform: skewX(20deg);
+  }
+
+  40% {
+    transform: skewX(30deg);
+  }
+
+  60% {
     background-position: 100% 50%;
+    transform: skewX(0deg);
+  }
+
+  78% {
+    transform: skewX(-20deg);
   }
 
   100% {
     background-position: 0% 50%;
+    transform: skewX(-30deg);
   }
 }
 

@@ -9,8 +9,8 @@ export default interface node {
   previousNode?: node; // may implement snake like a linked list
 }
 
-const CANVAS_SIZE: number[] = [600, 600];
-const SCALE: number = 30;
+const CANVAS_SIZE: number[] = [500, 500];
+const SCALE: number = 25;
 const XPOS_APPLE_START: number = Math.floor(
   Math.random() * (CANVAS_SIZE[0] / SCALE)
 );
