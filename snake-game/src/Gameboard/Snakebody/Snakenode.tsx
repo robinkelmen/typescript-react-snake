@@ -1,14 +1,7 @@
 import React, { Component } from "react";
 import "./Snakenode.css";
+import node from "../constants";
 
-interface node {
-  row: number;
-  col: number;
-  isHead: boolean;
-  isBody: boolean;
-  isApple: boolean;
-  previousNode?: node; // may implement snake like a linked list
-}
 interface Props {
   xPos: number;
   yPos: number;
