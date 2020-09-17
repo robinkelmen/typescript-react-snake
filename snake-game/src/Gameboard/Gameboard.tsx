@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { KeyboardEvent } from "react";
 import "./Gameboard.css";
 import Snakenode from "./Snakebody/Snakenode";
 
@@ -16,25 +17,138 @@ interface node {
   isHead: boolean;
   isBody: boolean;
   isApple: boolean;
-  previousNode?: Snakenode;
+  previousNode?: node; // may implement snake like a linked list
 }
 
-export default class Gameboard extends Component<Props, { nodes: node[][] }> {
+export default class Gameboard extends Component<
+  Props,
+  { nodes: node[][]; snake: node[]; direction: string }
+> {
   constructor(props: Props) {
     super(props);
     this.state = {
       nodes: [],
+      snake: [],
+      direction: "UP",
     };
   }
 
-  play() {}
+  play() {
+    while (1) {
+      this.snakeMove();
+    }
+  }
+  buildSnake() {
+    const { snake } = this.state;
+    for (let i: number = 0; i < snake.length; i++) {
+      setTimeout(() => {
+        const node = snake[i];
+        console.log(node);
+
+        const x: Element | null = document.getElementById(
+          `node-${node.row}-${node.col}`
+        );
+        if (x) {
+          x.className = "node node_body";
+        } else {
+        }
+      }, 50 * i);
+    }
+  }
+
+  snakeMove() {
+    const { snake } = this.state;
+    const len = snake.length;
+    let head: any = null;
+    let headnode = snake[len - 1];
+    //console.log("here");
+    //console.log(this.state.direction);
+    switch (this.state.direction) {
+      case "RIGHT":
+        head = {
+          row: headnode.row,
+          col: headnode.col + 1,
+          isHead: true,
+          isBody: true,
+          isApple: false,
+          previousNode: snake[len - 2],
+        };
+
+        break;
+      case "LEFT":
+        head = {
+          row: headnode.row,
+          col: headnode.col - 1,
+          isHead: true,
+          isBody: true,
+          isApple: false,
+          previousNode: snake[len - 2],
+        };
+        break;
+      case "DOWN":
+        head = {
+          row: headnode.row + 1,
+          col: headnode.col,
+          isHead: true,
+          isBody: true,
+          isApple: false,
+          previousNode: snake[len - 2],
+        };
+        break;
+      case "UP":
+        head = {
+          row: headnode.row - 1,
+          col: headnode.col,
+          isHead: true,
+          isBody: true,
+          isApple: false,
+          previousNode: snake[len - 2],
+        };
+        break;
+    }
+    snake.push(head);
+    snake.shift();
+
+    this.setState({ snake });
+    this.buildSnake();
+  }
+
+  onKeyDown = (e: any) => {
+    switch (e.keyCode) {
+      case 38:
+        this.setState({
+          direction: "UP",
+        });
+        console.log("up");
+        break;
+      case 40:
+        this.setState({
+          direction: "DOWN",
+        });
+        console.log("down");
+        break;
+      case 37:
+        this.setState({
+          direction: "LEFT",
+        });
+        console.log("LEFT");
+        break;
+      case 39:
+        this.setState({
+          direction: "RIGHT",
+        });
+        console.log("right");
+        break;
+    }
+  };
 
   componentDidMount() {
-    console.log(this.state);
     const nodes = createGrid(30, 30);
-    console.log(nodes);
-    this.setState({ nodes });
-    console.log(this.state);
+    const head: node = nodes[XPOS_HEAD_START][YPOS_HEAD_START];
+    const snake: node[] = [];
+    snake.push(head);
+    this.setState({ nodes, snake });
+    document.onkeydown = this.onKeyDown;
   }
 
   render() {
@@ -44,42 +158,42 @@ export default class Gameboard extends Component<Props, { nodes: node[][] }> {
         <button className="button startbutt" onClick={() => this.play()}>
           Start Playing
         </button>
-        {nodes.map((myrow, rowindex) => {
-          return (
-            <div key={rowindex} className="row">
-              {myrow.map((node, nodeindex) => {
-                const {
-                  row,
-                  col,
-                  isHead,
-                  isBody,
-                  isApple,
-                  previousNode,
-                } = node;
+        <div className="container">
+          {nodes.map((myrow, rowindex) => {
+            return (
+              <div key={rowindex} className="row">
+                {myrow.map((node, nodeindex) => {
+                  const {
+                    row,
+                    col,
+                    isHead,
+                    isBody,
+                    isApple,
+                    previousNode,
+                  } = node;
 
-                return (
-                  <Snakenode
-                    key={nodeindex}
-                    xPos={row}
-                    yPos={col}
-                    isHead={isHead}
-                    isBody={isBody}
-                    isApple={isApple}
-                    previousNode={previousNode}
-                  ></Snakenode>
-                );
-              })}
-            </div>
-          );
-        })}
+                  return (
+                    <Snakenode
+                      key={nodeindex}
+                      xPos={row}
+                      yPos={col}
+                      isHead={isHead}
+                      isBody={isBody}
+                      isApple={isApple}
+                      previousNode={previousNode}
+                    ></Snakenode>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
 }
 
 const createGrid = (xSize: number, ySize: number) => {
-  console.log(YPOS_APPLE_START);
-  console.log(XPOS_APPLE_START);
   const nodes = [];
   for (let row = 0; row < xSize; row++) {
     const currentrow = [];

@@ -1,86 +1,88 @@
 .Grid {
+  background: linear-gradient(230deg, #a24bcf, #4b79cf, #4bc5cf);
+  margin: auto;
+  padding: 20px;
+  background-size: 300% 300%;
+  outline: 0.2px solid black;
 
-    background: linear-gradient(230deg, #a24bcf, #4b79cf, #4bc5cf);
-    margin: auto;
-    padding: 20px;
-    background-size: 300% 300%;
-
-    animation: grad 10s ease infinite;
+  animation: grad 10s ease infinite;
+}
+.container {
+  outline: 1px solid black;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  outline: 0.2px solid black;
 }
 
 @keyframes grad {
-    0% {
-        background-position: 0% 50%
-    }
+  0% {
+    background-position: 0% 50%;
+  }
 
-    50% {
-        background-position: 100% 50%
-    }
+  50% {
+    background-position: 100% 50%;
+  }
 
-    100% {
-        background-position: 0% 50%
-    }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .button {
-
-    border: 2px #4b79cf;
-    background-color: #9cb9ee;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-
-
+  border: 2px #4b79cf;
+  background-color: #9cb9ee;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
 }
 
 .startbutt:hover {
-    background: linear-gradient(230deg, #4b79cf, #4bc5cf);
-    background-size: 300% 300%;
-    animation: buttgrad 5s ease infinite;
-
-
+  background: linear-gradient(230deg, #4b79cf, #4bc5cf);
+  background-size: 300% 300%;
+  animation: buttgrad 5s ease infinite;
 }
 
 @keyframes buttgrad {
-    0% {
-        background-position: 0% 50%
-    }
+  0% {
+    background-position: 0% 50%;
+  }
 
-    50% {
-        background-position: 100% 50%
-    }
+  50% {
+    background-position: 100% 50%;
+  }
 
-    100% {
-        background-position: 0% 50%
-    }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .row {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    position: relative;
-    height: 20px;
-    vertical-align: top;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  position: relative;
+  height: 20px;
+  vertical-align: top;
 }
 
 @keyframes myshift {
-    0% {
-        background-color: red;
-    }
+  0% {
+    background-color: red;
+  }
 
-    25% {
-        background-color: yellow;
-    }
+  25% {
+    background-color: yellow;
+  }
 
-    50% {
-        background-color: blue;
-    }
+  50% {
+    background-color: blue;
+  }
 
-    100% {
-        background-color: purple;
-    }
+  100% {
+    background-color: purple;
+  }
 }

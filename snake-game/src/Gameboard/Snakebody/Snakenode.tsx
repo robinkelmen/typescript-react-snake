@@ -1,13 +1,21 @@
 import React, { Component } from "react";
 import "./Snakenode.css";
 
+interface node {
+  row: number;
+  col: number;
+  isHead: boolean;
+  isBody: boolean;
+  isApple: boolean;
+  previousNode?: node; // may implement snake like a linked list
+}
 interface Props {
   xPos: number;
   yPos: number;
   isHead: boolean;
   isBody: boolean;
   isApple: boolean;
-  previousNode?: Snakenode;
+  previousNode?: node;
 }
 
 export default class Snakenode extends Component<Props> {
